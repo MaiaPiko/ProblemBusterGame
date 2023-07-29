@@ -27,8 +27,8 @@ function Bluey({
 	blueyRef,
 	trampolineRef,
 	blueyAngle,
-  speed,
-  stageWidth
+	speed,
+	stageWidth,
 }) {
 	// const speed = useRef(6);
 	const app = useApp();
@@ -36,47 +36,48 @@ function Bluey({
 	const gameOver = useContext(gameOverContext);
 	const gameStart = useContext(gameOverContext);
 	const passblueyPosition = useContext(BlueyContext);
-
+	const angleVariables = [1, 0.9, 1]
 	useTick((delta) => {
 		const dx = Math.cos(blueyAngle.current) * speed.current * delta;
 		const dy = Math.sin(blueyAngle.current) * speed.current * delta;
-		blueyRef.current.x += dx;
-		blueyRef.current.y += dy;
-
-		// setBlueyPosition(blueyRef.current.x, blueyRef.current.y)
-
-		if (
-			blueyRef.current.x > app.screen.width ||
-			blueyRef.current.x < -blueyRef.current.width + blueyRef.current.width
-		) {
-			blueyAngle.current = Math.PI - blueyAngle.current ;
+		const newBlueyX = blueyRef.current.x + dx;
+		const newBlueyY = blueyRef.current.y + dy;
+	  
+		// Ensure bluey stays within the stage boundaries on the X-axis
+		if (newBlueyX < 0) {
+		  blueyRef.current.x = 0;
+		  blueyAngle.current = Math.PI - blueyAngle.current * angleVariables[Math.floor(Math.random() * angleVariables.length)];
+		} else if (newBlueyX > app.screen.width) {
+		  blueyRef.current.x = app.screen.width;
+		  blueyAngle.current = Math.PI - blueyAngle.current * angleVariables[Math.floor(Math.random() * angleVariables.length)];
+		} else {
+		  blueyRef.current.x = newBlueyX;
 		}
-
-		if (blueyRef.current.y > app.screen.height) {
-			if (startGame) {
-				// speed.current = 0;
-				setGameOver(true);
-        speed.current = 7 
-			} else {
-				blueyAngle.current = -blueyAngle.current;
-			}
-		}
-
-		if (blueyRef.current.y < -blueyRef.current.height / 2) {
+	  
+		// Ensure bluey stays within the stage boundaries on the Y-axis
+		if (newBlueyY < 0) {
+		  blueyRef.current.y = 0;
+		  blueyAngle.current = -blueyAngle.current;
+		} else if (newBlueyY > app.screen.height) {
+		  if (startGame) {
+			setGameOver(true);
+		  } else {
+			blueyRef.current.y = app.screen.height;
 			blueyAngle.current = -blueyAngle.current;
+		  }
+		} else {
+		  blueyRef.current.y = newBlueyY;
 		}
-
+	  
 		const blueyBounds = blueyRef.current.getBounds();
 		const trampolineBounds = trampolineRef.current.getBounds();
-
-
-
+	  
 		if (checkCollision(blueyBounds, trampolineBounds)) {
-		
-			blueyAngle.current = -blueyAngle.current; 
-    //   speed.current += 0.1;
-    }
-	});
+			const variables = [-blueyAngle.current , -Math.PI/2, -blueyAngle.current*0.9, -blueyAngle.current*1.1]
+		//   blueyAngle.current = -blueyAngle.current;
+		blueyAngle.current = variables[Math.floor(Math.random() * variables.length)]
+		}
+	  });
 
 	return (
 		<Container>
@@ -85,8 +86,7 @@ function Bluey({
 					animationSpeed={0.01}
 					isPlaying={true}
 					// scale={0.15}
-					scale={stageWidth* 0.00015}
-
+					scale={stageWidth * 0.00015}
 					textures={textures}
 					anchor={0.5}
 				/>

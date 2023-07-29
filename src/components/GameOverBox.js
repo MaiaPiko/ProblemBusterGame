@@ -32,13 +32,14 @@ const app = useApp()
 
         <Text 
         text= "Game Over"
-        x={app.screen.width/2 - app.screen.width/4}
-        y={app.screen.width/2.3}
+        x={app.screen.width/2 }
+        y={app.screen.width/2}
+        anchor={0.5}
         style={
            {
               align: 'center',
               fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
-              fontSize: 60,
+              fontSize: smallerScreen? 30:60,
               fontWeight: '400',
               fill: ['#ffffff', '#00ff99'], // gradient
               stroke: '#01d27e',

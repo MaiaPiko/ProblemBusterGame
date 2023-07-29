@@ -2,7 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import { TrampolineContext } from "../../Game";
 
-function MoveRightButton() {
+function MoveRightButton({ stageWidth }) {
 	// const dispatch  = useContext(GameContext);
 	const { state, dispatch } = useContext(TrampolineContext);
 
@@ -19,43 +19,55 @@ function MoveRightButton() {
 			onMouseUp={handleButtonRelease}
 			onTouchStart={handleRightButtonClick}
 			onTouchEnd={handleButtonRelease}
+			style={{
+				width: "50%",
+				// borderLeft: "none"
+			}}
 		>
-			&#8594;
+			<h1 style={{ borderX: 25 }}>&#8594;</h1>
 		</button>
 	);
 }
 
+function MoveLeftButton({ stageWidth }) {
+	// const dispatch  = useContext(GameContext);
+	const { state, dispatch } = useContext(TrampolineContext);
 
-function MoveLeftButton() {
-    // const dispatch  = useContext(GameContext);
-    const { state, dispatch } = useContext(TrampolineContext);
+	const handleLeftButtonClick = () => {
+		dispatch({ type: "MOVE_LEFT" });
+	};
 
-    const handleLeftButtonClick = () => {
-      dispatch({ type: 'MOVE_LEFT' });
-    };
-  
-    const handleButtonRelease = () => {
-        dispatch({ type: 'STOP' });
-      };
-    
-      return (
-        <button
-          onMouseDown={handleLeftButtonClick}
-          onMouseUp={handleButtonRelease}
-          onTouchStart={handleLeftButtonClick}
-          onTouchEnd={handleButtonRelease}
-        >
-          &#8592;
-        </button>
-      );
-    }
+	const handleButtonRelease = () => {
+		dispatch({ type: "STOP" });
+	};
 
+	return (
+		<button
+			onMouseDown={handleLeftButtonClick}
+			onMouseUp={handleButtonRelease}
+			onTouchStart={handleLeftButtonClick}
+			onTouchEnd={handleButtonRelease}
+			style={{
+				width: "50%",
+				// borderRight: "none"
+			}}
+		>
+			<h1 style={{ borderX: 25 }}>&#8592;</h1>
+		</button>
+	);
+}
 
-	export default function navigationButtons({dispatch}){
-		return(
-			<div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
+export default function NavigationButtons({ dispatch, stageWidth }) {
+	return (
+		<div
+			style={{
+				display: "flex", // Use flex display to place the buttons side by side
+				justifyContent: "space-between", // Add space between the buttons
+				width: stageWidth, // Set the width of the parent div to the stageWidth
+			}}
+		>
 			<MoveLeftButton dispatch={dispatch} />
-				<MoveRightButton dispatch={dispatch} />
-			</div>
-		)
-	}
+			<MoveRightButton dispatch={dispatch} />
+		</div>
+	);
+}

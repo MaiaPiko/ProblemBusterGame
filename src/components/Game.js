@@ -5,7 +5,7 @@ import React, {
 	useEffect,
 	useRef,
 } from "react";
-import { Stage, Text } from "@pixi/react";
+import { Container, Stage, Text } from "@pixi/react";
 import Trampoline from "./sprites/Trampoline";
 import Bluey from "./sprites/Bluey";
 import MoveLeftButton from "./sprites/buttons/MoveLeftButton";
@@ -17,8 +17,9 @@ import Skip from "./Skip";
 import Words from "./sprites/Words";
 import Bricks from "./sprites/Bricks";
 import * as PIXI from "pixi.js";
-import navigationButtons from "./sprites/buttons/navigationButtons";
+import NavigationButtons from "./sprites/buttons/NavigationButtons";
 import GameIntro from "./GameIntro";
+import YouWin from "./YouWin";
 
 export const TrampolineContext = createContext();
 export const BlueyContext = createContext();
@@ -26,6 +27,7 @@ export const gameOverContext = createContext();
 export const startGameContext = createContext();
 export const scoreContext = createContext();
 export const introContext = createContext();
+export const winContext = createContext();
 const initialState = { velocity: 0 };
 const numberOfRows = (number) => {
 	let result = number * 20;
@@ -44,15 +46,30 @@ function trampolineReducer(state, action) {
 	}
 }
 
+
+function Score ({score}) {
+	return(
+		<Container>
+			<Text
+			text={`Score : ${score}`}
+			style={{
+				fill:"white",
+				fontSize: 15,
+				
+			}}/>
+		</Container>
+	)
+}
+
+
 export const Game = () => {
 	// const stageHeight = 800;
 	const [state, dispatch] = useReducer(trampolineReducer, initialState);
 	const [inputValue, setInputValue] = useState("");
 	const [gameOver, setGameOver] = useState(false);
 	const [startGame, setStartGame] = useState(false);
-	const [score, setScore] = useState(0); // Define the score variable and its setter
+	const [score, setScore] = useState(0); 
 	const blueyRef = useRef(null);
-	const blueySpeed = useRef(7);
 	const inputBoxRef = useRef(false);
 	const trampolineRef = useRef(null);
 	const blueyAngle = useRef(Math.random() * Math.PI * 2);
@@ -60,7 +77,8 @@ export const Game = () => {
 	const inputRef = useRef(null);
 	const [gameIntro, setGameIntro] = useState("true")
 	const [smallerScreen, setSmallerScreen] = useState("false")
-
+	const [win, setWin] = useState(false)
+	const blueySpeed = useRef(smallerScreen? 6: 8);
 
 	useEffect(() => {
 		const smallerScreenDevice = window.innerWidth <= 780;
@@ -140,6 +158,7 @@ export const Game = () => {
 	useEffect(() => {
 		if (!startGame) {
 			setGameOver(false);
+			setWin(false)
 			setScore(0)
 		}
 	}, [startGame]);
@@ -155,19 +174,28 @@ export const Game = () => {
 		}
 	});
 
+
+// useEffect(()=>{
+// 	if (win){
+// 		console.log("You win!")
+// 	}
+// },[win])
+
+
 	return (
+		<winContext.Provider value={setWin}>
 		<startGameContext.Provider value={startGame}>
 		<introContext.Provider value={{gameIntro}}>
 		<TrampolineContext.Provider value={{ dispatch }}>
 			<BlueyContext.Provider value={blueyRef}>
 				<gameOverContext.Provider value={gameOver}>
-				<p style={{textAlign:"left", paddingLeft: 50}}>{`Score: ${score}`}</p>
-
+				{/* <p style={{textAlign:"left", paddingLeft: 50}}>{`Score: ${score}`}</p> */}
 					<Stage width={stageWidth} height={stageHeight} ref={stageRef}>
 					<scoreContext.Provider value={{ score, setScore }}>
-					
+					{startGame && <Score score={score}/>}
+
 							{/* {startGame && <Monsters amount={numberOfRows(3)} wordList={wordList}/>} */}
-							{startGame && !gameOver &&
+							{startGame && !gameOver && !win &&
 							 
 								<Words
 									amount={numberOfRows(3)}
@@ -179,11 +207,12 @@ export const Game = () => {
 									stageRef={stageRef}
 									score={score}
 									blueySpeed={blueySpeed}
+									setWin={setWin}
 									
 								/>
 							
 							}
-							{startGame && (
+							{startGame && !gameOver && !win && (
 								<Trampoline
 									stageHeight={stageHeight}
 									stageWidth={stageWidth}
@@ -192,7 +221,7 @@ export const Game = () => {
 									blueyRef={blueyRef}
 								/>
 							)}
-							{startGame && (
+							{startGame && !gameOver && !win && (
 								<Bluey
 									setGameOver={setGameOver}
 									startGame={startGame}
@@ -225,7 +254,11 @@ export const Game = () => {
 								/>
 							)} */}
 							{/* {!startGame && !gameIntro && <Skip setStartGame={setStartGame} />} */}
+					
+							{win && <YouWin setStartGame={setStartGame}/>}
 						</scoreContext.Provider>
+					
+					
 					</Stage>
 
 					<input
@@ -245,9 +278,9 @@ export const Game = () => {
 							// bottom: "20px",
 						}}
 					>
-						<MoveLeftButton dispatch={dispatch} />
-						<MoveRightButton dispatch={dispatch} />
-						{/* <h1>{`Score: ${score}`}</h1> */}
+						{/* <MoveLeftButton dispatch={dispatch} />
+						<MoveRightButton dispatch={dispatch} /> */}
+						<NavigationButtons stageWidth={stageWidth}/>
 					</div>
 					{/* </restartContext
 					.Provider> */}
@@ -256,5 +289,6 @@ export const Game = () => {
 		</TrampolineContext.Provider>
 		</introContext.Provider>
 		</startGameContext.Provider>
+		</winContext.Provider>
 	);
 };

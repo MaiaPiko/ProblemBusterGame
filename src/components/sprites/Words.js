@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Container, Text, useTick } from "@pixi/react";
 import { checkCollision } from "../../features/checkCollision";
-import { gameOverContext, scoreContext, BlueyContext} from "../Game";
+import { gameOverContext, scoreContext, BlueyContext, winContext} from "../Game";
 
 
-export default function Words({ amount, wordList, stageWidth, stageHeight, blueyRef, blueyAngle, blueySpeed }) {
+export default function Words({ amount, wordList, stageWidth, stageHeight, blueyRef, blueyAngle, blueySpeed, setWin }) {
   const [words, setWords] = useState([]);
   const wordRefs = useRef([]);
   const { score, setScore } = useContext(scoreContext);
-  const gameOver = useContext(gameOverContext)
-
+  const gameOver = useContext(gameOverContext);
+  const win = useContext(winContext);
   
   
   useEffect(() => {
@@ -105,6 +105,11 @@ export default function Words({ amount, wordList, stageWidth, stageHeight, bluey
         return true; // Keep the word in the array if no collision occurred
       });
     });
+
+    if (words.length == 0){
+      // ServiceWorkerContainer(true)
+      setWin(true)
+    }
   });
   
   

@@ -132,7 +132,7 @@ export const Game = () => {
 	const handleInputChange = (event) => {
 		if (event.keyCode === 13) {
 			setStartGame(true);
-			event.target.blur();
+	
 			}
 		 else {
 			setInputValue(event.target.value);

@@ -108,7 +108,7 @@ export const Game = () => {
 	const stageHeight = smallerScreen? window.innerHeight*0.9 :900;
 
 	const [textAdded, setTextAdded] = useState(false);
-	const [restartGame, setRestartGame] = useState(false);
+	// const [restartGame, setRestartGame] = useState(false);
 	const defaultWords = [
 		"destroy",
 		"sadness",
@@ -179,6 +179,29 @@ export const Game = () => {
 	window.addEventListener("keydown", handleInputChange);
 
 	const stageElement = stageRef.current;
+
+	const handleClick = () => {
+		inputRef.current.focus();
+	  };
+	
+
+
+	useEffect(() => {
+		if(!stageElement) return;
+		stageElement.addEventListener('click', handleClick);
+
+		return () => {
+			stageElement.removeEventListener('click', handleClick)
+		}
+	}, [])
+
+	// const handleClick = (event) => {
+	// 	if(event.target == stageRef.current){
+	// 		inputRef.current.focus();
+	// 	}
+
+	// }
+
 	window.addEventListener("click", () => {
 		if (inputRef.current) {
 			inputRef.current.focus();
@@ -186,11 +209,7 @@ export const Game = () => {
 	});
 
 
-// useEffect(()=>{
-// 	if (win){
-// 		console.log("You win!")
-// 	}
-// },[win])
+
 
 
 	return (
@@ -248,7 +267,7 @@ export const Game = () => {
 								/>
 							)}
 
-							{gameOver && <GameOverBox setStartGame={setStartGame} stageWidth={stageWidth} />}
+							{gameOver && <GameOverBox setStartGame={setStartGame} stageWidth={stageWidth} stageElement={stageElement} />}
 							{!startGame && (
 								<GameIntro 
 								setGameIntro={setGameIntro}

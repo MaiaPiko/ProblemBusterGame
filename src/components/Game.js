@@ -4,6 +4,7 @@ import React, {
 	useState,
 	useEffect,
 	useRef,
+
 } from "react";
 import { Container, Stage, Text, Graphics, useApp } from "@pixi/react";
 import Trampoline from "./sprites/Trampoline";
@@ -180,20 +181,29 @@ export const Game = () => {
 
 	const stageElement = stageRef.current;
 
-	const handleClick = () => {
-		inputRef.current.focus();
-	  };
+
 	
 
-
-	useEffect(() => {
-		if(!stageElement) return;
-		stageElement.addEventListener('click', handleClick);
-
-		return () => {
-			stageElement.removeEventListener('click', handleClick)
-		}
-	}, [])
+	//   useEffect(() => {
+	// 	const stageElement = stageRef.current;
+	
+	// 	const handleClick = () => {
+	
+	// 	  inputRef.current.focus();
+	// 	 // Replace "Clicked!" with your desired alert message
+	// 	};
+	
+	// 	if (stageElement) {
+	// 	  stageElement.addEventListener("click", handleClick);
+	// 	}
+	
+	// 	// Remove the event listener when the component is unmounted
+	// 	return () => {
+	// 	  if (stageElement) {
+	// 		stageElement.removeEventListener("click", handleClick);
+	// 	  }
+	// 	};
+	//   }, []);
 
 	// const handleClick = (event) => {
 	// 	if(event.target == stageRef.current){
@@ -202,11 +212,19 @@ export const Game = () => {
 
 	// }
 
-	window.addEventListener("click", () => {
+	const inputFocus = () => {
 		if (inputRef.current) {
 			inputRef.current.focus();
+	
 		}
-	});
+
+	}
+
+	window.addEventListener("click", inputFocus())
+
+	window.addEventListener("touchStart", inputFocus())
+	
+
 
 
 
@@ -222,7 +240,8 @@ export const Game = () => {
 
 				<gameOverContext.Provider value={gameOver}>
 				{/* <p style={{textAlign:"left", paddingLeft: 50}}>{`Score: ${score}`}</p> */}
-					<Stage width={stageWidth} height={stageHeight} ref={stageRef}>
+					<Stage width={stageWidth} height={stageHeight} >
+						<Container ref={stageRef}>
 					<scoreContext.Provider value={{ score, setScore }}>
 					{startGame && <Score score={score}/>}
 
@@ -267,7 +286,7 @@ export const Game = () => {
 								/>
 							)}
 
-							{gameOver && <GameOverBox setStartGame={setStartGame} stageWidth={stageWidth} stageElement={stageElement} />}
+							{gameOver && <GameOverBox setStartGame={setStartGame} stageWidth={stageWidth}  />}
 							{!startGame && (
 								<GameIntro 
 								setGameIntro={setGameIntro}
@@ -294,7 +313,7 @@ export const Game = () => {
 						</scoreContext.Provider>
 
 						{/* {startGame && !gameOver && !win && <NavigationButtons stageWidth={stageWidth} />} */}
-				
+						</Container>
 					</Stage>
 				{!startGame &&
 					<input

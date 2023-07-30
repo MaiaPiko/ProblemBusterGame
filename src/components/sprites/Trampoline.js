@@ -91,9 +91,9 @@ export default function Trampoline({ stageWidth, stageHeight, speed, trampolineR
 
   };
   
-  // const handleLeftButtonUp = () => {
-  //   clearInterval(leftRef.current.intervalId);
-  // };
+  const handleButtonUp = () => {
+    keyDispatch({ type: 'STOP' });
+    };
 
   useTick(() => {
     const trampoline = trampolineRef.current;
@@ -147,7 +147,7 @@ export default function Trampoline({ stageWidth, stageHeight, speed, trampolineR
        <Graphics
         ref={rightRef}
         draw={g => {
-          g.lineStyle(2, 0xff00ff, 1);
+          g.lineStyle(2, 0x00FF00, 1);
           g.beginFill(0xff00bb, 0.25);
     
           // Calculate the height of the equilateral triangle based on the width
@@ -164,7 +164,7 @@ export default function Trampoline({ stageWidth, stageHeight, speed, trampolineR
         }}
         interactive
         pointertap={handleRightButtonClick}
-        // pointerup={handleRightButtonUp}
+        pointerup={handleButtonUp}
         // pointerout={handleRightButtonUp}
       />
 
@@ -193,7 +193,7 @@ export default function Trampoline({ stageWidth, stageHeight, speed, trampolineR
         }}
         interactive
         pointertap={handleLeftButtonClick}
-        // pointerup={handleLeftButtonUp}
+        pointerup={handleButtonUp}
         // pointerout={handleLeftButtonUp}
       />
     </Container>}

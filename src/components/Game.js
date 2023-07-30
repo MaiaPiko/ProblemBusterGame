@@ -5,11 +5,10 @@ import React, {
 	useEffect,
 	useRef,
 } from "react";
-import { Container, Stage, Text } from "@pixi/react";
+import { Container, Stage, Text, Graphics, useApp } from "@pixi/react";
 import Trampoline from "./sprites/Trampoline";
 import Bluey from "./sprites/Bluey";
 import MoveLeftButton from "./sprites/buttons/MoveLeftButton";
-import MoveRightButton from "./sprites/buttons/MoveRightButton";
 import GameOverBox from "./GameOverBox";
 import WordInputBox from "./WordInputBox";
 import Monsters from "./sprites/Monsters";
@@ -20,6 +19,7 @@ import * as PIXI from "pixi.js";
 import NavigationButtons from "./sprites/buttons/NavigationButtons";
 import GameIntro from "./GameIntro";
 import YouWin from "./YouWin";
+import { keyboard } from "@testing-library/user-event/dist/keyboard";
 
 export const TrampolineContext = createContext();
 export const BlueyContext = createContext();
@@ -28,6 +28,9 @@ export const startGameContext = createContext();
 export const scoreContext = createContext();
 export const introContext = createContext();
 export const winContext = createContext();
+
+
+
 const initialState = { velocity: 0 };
 const numberOfRows = (number) => {
 	let result = number * 20;
@@ -62,6 +65,7 @@ function Score ({score}) {
 }
 
 
+
 export const Game = () => {
 	// const stageHeight = 800;
 	const [state, dispatch] = useReducer(trampolineReducer, initialState);
@@ -79,6 +83,11 @@ export const Game = () => {
 	const [smallerScreen, setSmallerScreen] = useState("false")
 	const [win, setWin] = useState(false)
 	const blueySpeed = useRef(smallerScreen? 6: 8);
+	// const leftButtonRef = React.useRef();
+
+
+
+	
 
 	useEffect(() => {
 		const smallerScreenDevice = window.innerWidth <= 780;
@@ -96,7 +105,7 @@ export const Game = () => {
 		}
 	}, []);
 	const stageWidth = smallerScreen? window.innerWidth : 800;
-	const stageHeight = smallerScreen? window.innerHeight*0.95 :900;
+	const stageHeight = smallerScreen? window.innerHeight :900;
 
 	const [textAdded, setTextAdded] = useState(false);
 	const [restartGame, setRestartGame] = useState(false);
@@ -123,6 +132,7 @@ export const Game = () => {
 	const handleInputChange = (event) => {
 		if (event.keyCode === 13) {
 			setStartGame(true);
+			event.target.blur();
 			}
 		 else {
 			setInputValue(event.target.value);
@@ -161,6 +171,7 @@ export const Game = () => {
 			setWin(false)
 			setScore(0)
 		}
+	
 	}, [startGame]);
 
 	const formattedText = formatInputValue(inputValue);
@@ -183,11 +194,13 @@ export const Game = () => {
 
 
 	return (
+
 		<winContext.Provider value={setWin}>
 		<startGameContext.Provider value={startGame}>
 		<introContext.Provider value={{gameIntro}}>
-		<TrampolineContext.Provider value={{ dispatch }}>
 			<BlueyContext.Provider value={blueyRef}>
+			<TrampolineContext.Provider value={{ dispatch}}>
+
 				<gameOverContext.Provider value={gameOver}>
 				{/* <p style={{textAlign:"left", paddingLeft: 50}}>{`Score: ${score}`}</p> */}
 					<Stage width={stageWidth} height={stageHeight} ref={stageRef}>
@@ -220,6 +233,8 @@ export const Game = () => {
 									trampolineRef={trampolineRef}
 									blueyRef={blueyRef}
 								/>
+
+					
 							)}
 							{startGame && !gameOver && !win && (
 								<Bluey
@@ -232,6 +247,7 @@ export const Game = () => {
 									stageWidth={stageWidth}
 								/>
 							)}
+
 							{gameOver && <GameOverBox setStartGame={setStartGame} stageWidth={stageWidth} />}
 							{!startGame && (
 								<GameIntro 
@@ -257,10 +273,11 @@ export const Game = () => {
 					
 							{win && <YouWin setStartGame={setStartGame}/>}
 						</scoreContext.Provider>
-					
-					
-					</Stage>
 
+						{/* {startGame && !gameOver && !win && <NavigationButtons stageWidth={stageWidth} />} */}
+				
+					</Stage>
+				{!startGame &&
 					<input
 						value={inputValue}
 						onChange={handleInputChange}
@@ -268,7 +285,7 @@ export const Game = () => {
 						style={{ position: "absolute", left: "-9999px" }}
 						autoFocus
 						ref={inputRef}
-					/>
+					/>}
 
 					<div
 						style={{
@@ -280,15 +297,17 @@ export const Game = () => {
 					>
 						{/* <MoveLeftButton dispatch={dispatch} />
 						<MoveRightButton dispatch={dispatch} /> */}
-						<NavigationButtons stageWidth={stageWidth}/>
+						{/* <NavigationButtons stageWidth={stageWidth}/> */}
 					</div>
 					{/* </restartContext
 					.Provider> */}
 				</gameOverContext.Provider>
+				</TrampolineContext.Provider>
+
 			</BlueyContext.Provider>
-		</TrampolineContext.Provider>
 		</introContext.Provider>
 		</startGameContext.Provider>
 		</winContext.Provider>
+
 	);
 };

@@ -105,7 +105,7 @@ export const Game = () => {
 		}
 	}, []);
 	const stageWidth = smallerScreen? window.innerWidth : 800;
-	const stageHeight = smallerScreen? window.innerHeight :900;
+	const stageHeight = smallerScreen? window.innerHeight*0.9 :900;
 
 	const [textAdded, setTextAdded] = useState(false);
 	const [restartGame, setRestartGame] = useState(false);

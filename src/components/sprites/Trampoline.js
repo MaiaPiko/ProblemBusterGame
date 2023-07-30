@@ -66,34 +66,34 @@ export default function Trampoline({ stageWidth, stageHeight, speed, trampolineR
     keyDispatch({ type: 'MOVE_RIGHT' });
   
     // Start moving the trampoline continuously until the button is released
-    const intervalId = setInterval(() => {
-      keyDispatch({ type: 'STOP' });
-    }, 150); // Adjust the interval time as needed for smooth movement
+    // const intervalId = setInterval(() => {
+    //   keyDispatch({ type: 'STOP' });
+    // }, 150); // Adjust the interval time as needed for smooth movement
   
     // Store the intervalId in a ref, so we can clear it later
-    rightRef.current.intervalId = intervalId;
+    // rightRef.current.intervalId = intervalId;
     // clearInterval(rightRef.current.intervalId);
 
   };
   
-  const handleRightButtonUp = () => {
-    clearInterval(rightRef.current.intervalId);
-  };
+  // const handleRightButtonUp = () => {
+  //   clearInterval(rightRef.current.intervalId);
+  // };
   
 
   const handleLeftButtonClick = () => {
     keyDispatch({ type: 'MOVE_LEFT' });
-      const intervalId = setInterval(() => {
-      keyDispatch({ type: 'STOP' });
-    }, 150); 
+    //   const intervalId = setInterval(() => {
+    //   keyDispatch({ type: 'STOP' });
+    // }, 150); 
   
-    leftRef.current.intervalId = intervalId;
+    // leftRef.current.intervalId = intervalId;
 
   };
   
-  const handleLeftButtonUp = () => {
-    clearInterval(leftRef.current.intervalId);
-  };
+  // const handleLeftButtonUp = () => {
+  //   clearInterval(leftRef.current.intervalId);
+  // };
 
   useTick(() => {
     const trampoline = trampolineRef.current;
@@ -164,8 +164,8 @@ export default function Trampoline({ stageWidth, stageHeight, speed, trampolineR
         }}
         interactive
         pointertap={handleRightButtonClick}
-        pointerup={handleRightButtonUp}
-        pointerout={handleRightButtonUp}
+        // pointerup={handleRightButtonUp}
+        // pointerout={handleRightButtonUp}
       />
 
 
@@ -193,8 +193,8 @@ export default function Trampoline({ stageWidth, stageHeight, speed, trampolineR
         }}
         interactive
         pointertap={handleLeftButtonClick}
-        pointerup={handleLeftButtonUp}
-        pointerout={handleLeftButtonUp}
+        // pointerup={handleLeftButtonUp}
+        // pointerout={handleLeftButtonUp}
       />
     </Container>}
     </>

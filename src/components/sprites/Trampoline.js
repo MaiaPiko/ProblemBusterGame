@@ -65,13 +65,11 @@ export default function Trampoline({ stageWidth, stageHeight, speed, trampolineR
   const handleRightButtonClick = () => {
     keyDispatch({ type: 'MOVE_RIGHT' });
   
-    // Start moving the trampoline continuously until the button is released
-    // const intervalId = setInterval(() => {
-    //   keyDispatch({ type: 'STOP' });
-    // }, 150); // Adjust the interval time as needed for smooth movement
+    const intervalId = setInterval(() => {
+      keyDispatch({ type: 'STOP' });
+    }, 200); // Adjust the interval time as needed for smooth movement
   
-    // Store the intervalId in a ref, so we can clear it later
-    // rightRef.current.intervalId = intervalId;
+    rightRef.current.intervalId = intervalId;
     // clearInterval(rightRef.current.intervalId);
 
   };
@@ -83,16 +81,21 @@ export default function Trampoline({ stageWidth, stageHeight, speed, trampolineR
 
   const handleLeftButtonClick = () => {
     keyDispatch({ type: 'MOVE_LEFT' });
-    //   const intervalId = setInterval(() => {
-    //   keyDispatch({ type: 'STOP' });
-    // }, 150); 
+      const intervalId = setInterval(() => {
+      keyDispatch({ type: 'STOP' });
+    }, 200); 
   
-    // leftRef.current.intervalId = intervalId;
+    leftRef.current.intervalId = intervalId;
+    // clearInterval(leftRef.current.intervalId);
 
   };
   
   const handleButtonUp = () => {
     keyDispatch({ type: 'STOP' });
+        clearInterval(rightRef.current.intervalId);
+        clearInterval(leftRef.current.intervalId);
+
+
     };
 
   useTick(() => {

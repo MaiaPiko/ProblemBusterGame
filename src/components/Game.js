@@ -83,8 +83,10 @@ export const Game = () => {
 	const [gameIntro, setGameIntro] = useState("true")
 	const [smallerScreen, setSmallerScreen] = useState("false")
 	const [win, setWin] = useState(false)
-	const blueySpeed = useRef(smallerScreen? 6: 8);
+	// const blueySpeed = useRef(smallerScreen? 6: 8);
 	// const leftButtonRef = React.useRef();
+
+
 
 
 
@@ -104,10 +106,11 @@ export const Game = () => {
 				y: blueyRef.current.y,
 			};
 		}
+		inputFocus()
 	}, []);
 	const stageWidth = smallerScreen? window.innerWidth : 800;
 	const stageHeight = smallerScreen? window.innerHeight*0.9 :900;
-
+	const blueySpeed = useRef(stageWidth/100);
 	const [textAdded, setTextAdded] = useState(false);
 	// const [restartGame, setRestartGame] = useState(false);
 	const defaultWords = [
@@ -220,9 +223,9 @@ export const Game = () => {
 
 	}
 
-	window.addEventListener("click", inputFocus())
+	window.addEventListener("click", inputFocus)
 
-	window.addEventListener("touchStart", inputFocus())
+	window.addEventListener("touchStart", inputFocus)
 	
 
 

@@ -27,6 +27,10 @@ function GameOverBox({setStartGame, stageWidth}) {
 
   return () => {
     window.removeEventListener('keydown', handleKeyDown);
+    window.removeEventListener('click', handleKeyDown);
+    window.removeEventListener('touchstart', handleKeyDown);
+
+
   };
 }, []); // Empty dependency array to ensure the effect runs only once
 const smallerScreen = stageWidth <= 768;

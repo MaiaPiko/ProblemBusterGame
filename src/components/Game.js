@@ -174,9 +174,17 @@ export const Game = () => {
 			setGameOver(false);
 			setWin(false)
 			setScore(0)
+			
 		}
 	
 	}, [startGame]);
+
+	useEffect(() => {
+		if (startGame) {
+		  blueySpeed.current = stageWidth / 100; // Reset blueySpeed to the default value
+		}
+	  }, [startGame, stageWidth]);
+	  
 
 	const formattedText = formatInputValue(inputValue);
 	const wordList = addedWords(inputValue);
@@ -336,9 +344,7 @@ export const Game = () => {
 							// bottom: "20px",
 						}}
 					>
-						{/* <MoveLeftButton dispatch={dispatch} />
-						<MoveRightButton dispatch={dispatch} /> */}
-						{/* <NavigationButtons stageWidth={stageWidth}/> */}
+						<button onClick={inputFocus}>Show KeyBoard &#9000;</button>
 					</div>
 					{/* </restartContext
 					.Provider> */}

@@ -304,7 +304,7 @@ export const Game = () => {
 										ref={inputRef}
 									/>
 								)}
-								{smallerScreen && (
+								{smallerScreen && !startGame && (
 									<div
 										style={{
 											position: "absolute",

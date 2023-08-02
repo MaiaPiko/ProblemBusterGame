@@ -54,25 +54,13 @@ const app = useApp()
               stroke: '#01d27e',
               strokeThickness: 5,
               letterSpacing: 20,
-              // dropShadow: true,
-              // dropShadowColor: 'pink',
-              // dropShadowBlur: 2,
-              // dropShadowAngle: Math.PI / 6,
-              // dropShadowDistance: 6,
               wordWrap: true,
               wordWrapWidth:smallerScreen? 200 : 440,
             }
           }
         />
 
-         {/* <Graphics
-      draw={(g) => {
-        g.lineStyle(2, 0xff00ff, 1);
-        g.beginFill(0xff00bb, 0.25);
-        g.drawRoundedRect(250, 200, 200, 200, 15);
-        g.endFill();
-      }}
-    /> */}
+
       </Container>
     );
   }

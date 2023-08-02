@@ -77,11 +77,9 @@ export const Game = () => {
 	const [gameIntro, setGameIntro] = useState("true");
 	const [smallerScreen, setSmallerScreen] = useState("false");
 	const [win, setWin] = useState(false);
-	const [showNavButtons, setShowNavButtons] = useState("false")
+	const [showNavButtons, setShowNavButtons] = useState("false");
 	// const blueySpeed = useRef(smallerScreen? 6: 8);
 	// const leftButtonRef = React.useRef();
-
-	
 
 	useEffect(() => {
 		const smallerScreenDevice = window.innerWidth <= 800;
@@ -110,16 +108,6 @@ export const Game = () => {
 		"high-humidity",
 		"paper-cuts",
 	];
-
-	// const handleInputChange = (event) => {
-	// 	if (event.keyCode === 13) {
-	// 		setStartGame(true);
-	// 		}
-	// 	 else {
-	// 		setInputValue(event.target.value);
-	// 		setTextAdded(true);
-	// 	}
-	// };
 
 	const handleInputChange = (event) => {
 		if (event.keyCode === 13) {
@@ -174,8 +162,6 @@ export const Game = () => {
 	window.addEventListener("keydown", handleInputChange);
 
 	const stageElement = stageRef.current;
-
-
 
 	const inputFocus = () => {
 		if (inputRef.current) {
@@ -258,14 +244,7 @@ export const Game = () => {
 												/>
 											)}
 
-											{/* {!startGame && !gameIntro && (
-								<WordInputBox
-									inputBoxRef={inputBoxRef}
-									text={formattedText}
-									setStartGame={setStartGame}
-								/>
-							)} */}
-											{/* {!startGame && !gameIntro && <Skip setStartGame={setStartGame} />} */}
+
 
 											{win && <YouWin setStartGame={setStartGame} />}
 										</scoreContext.Provider>
@@ -273,7 +252,12 @@ export const Game = () => {
 										{/* {startGame && !gameOver && !win && <NavigationButtons stageWidth={stageWidth} />} */}
 									</Container>
 								</Stage>
-								{startGame && !smallerScreen &&  <p>To navigate, use your keyboard's left and right arrows or click on the traingles on the screen.</p>}
+								{startGame && !smallerScreen && (
+									<p>
+										To navigate, use your keyboard's left and right arrows or
+										click on the traingles on the screen.
+									</p>
+								)}
 								{!startGame && (
 									<input
 										value={inputValue}

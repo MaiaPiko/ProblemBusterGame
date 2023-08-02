@@ -59,7 +59,8 @@ function YouWin({ setStartGame }) {
         }
 	});
 	const app = useApp();
-	const scale = 0.25;
+	const smallerScreen = app.screen.width <700;
+	const scale = smallerScreen ? app.screen.width/1700 : 0.25;
 	const position = { x: app.screen.width / 2, y: app.screen.height / 2 };
 
 	const blueyHeight = textures[0]?.height * scale;

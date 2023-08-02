@@ -26,9 +26,12 @@ function reducer(state, action) {
 
 export default function Trampoline({ stageWidth, stageHeight, speed, trampolineRef, blueyRef}) {
   const [motion, keyDispatch] = useReducer(reducer, { velocity: 0 });
+  const isTablet = /tablet|ipad/i.test(navigator.userAgent)
 
   const [collision, setCollision] = useState(false);
-  const smallerScreen = stageWidth <780;
+  const smallerScreen = stageWidth <=1200;
+
+  const showButtons = smallerScreen || isTablet
   useEffect(() => {
     function handleKeyDown(event) {
       if (event.key === 'ArrowLeft') {
@@ -130,7 +133,9 @@ export default function Trampoline({ stageWidth, stageHeight, speed, trampolineR
 
   return (
     <>
-    <Container x={50} y={smallerScreen? stageHeight*0.9: yPosition}>
+    {/* <Container x={50} y={smallerScreen? stageHeight*0.9: yPosition}> */}
+    <Container x={50} y={stageHeight*0.9}>
+
       <AnimatedSprite
         ref={trampolineRef}
         animationSpeed={0.02}
@@ -145,7 +150,7 @@ export default function Trampoline({ stageWidth, stageHeight, speed, trampolineR
 
      
     </Container>
-    {smallerScreen && 
+ 
     <Container>
        <Graphics
         ref={rightRef}
@@ -199,7 +204,7 @@ export default function Trampoline({ stageWidth, stageHeight, speed, trampolineR
         pointerup={handleButtonUp}
         // pointerout={handleLeftButtonUp}
       />
-    </Container>}
+    </Container>
     </>
   );
 }

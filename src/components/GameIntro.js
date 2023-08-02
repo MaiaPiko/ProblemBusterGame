@@ -58,7 +58,7 @@ function WhatBlueySays({ positionX, positionY, stageHeight, stageWidth }) {
 	return (
 		<Container x={positionX} y={positionY}>
 			<Text
-				text="Tell me what's bothering you so we can destroy it together!"
+				text="Tell me all that's bothering you so we can destroy it together!"
 				style={{
 					fill: "white",
 					wordWrap: true,
@@ -226,7 +226,7 @@ function InputArea({text, inputBoxRef, positionX, positionY, stageWidth}) {
 
 
 export default function GameIntro({setGameIntro, stageWidth, stageHeight,  text, inputBoxRef, setStartGame}) {
-	const smallerScreen = stageWidth < 769;
+	const smallerScreen = stageWidth < 1201;
   const app = useApp();
   const [movingCloser, setMovingCloser] = useState(true);
 	const [scale, setScale] = useState(0.01);
@@ -292,18 +292,7 @@ export default function GameIntro({setGameIntro, stageWidth, stageHeight,  text,
 
 				</Container>
 			)}
-			{/* {!movingCloser && !blueyFinishedTalking && (
-				<Container>
-					<TalkingBluey
-						positionX={position.x}
-						positionY={position.y}
-						scale={scale}
-					/>
-					{!text && <WhatBlueySays positionX={position.x + 200} positionY={position.y -250} />}
-          <InputArea text={text} positionX={position.x + 200} positionY={position.y -40}/>
-
-				</Container>
-			)} */}
+	
 
 			{!movingCloser && blueyFinishedTalking && (
 
@@ -333,40 +322,36 @@ export default function GameIntro({setGameIntro, stageWidth, stageHeight,  text,
           setStartGame={setStartGame}
           stageHeight={stageHeight}
           stageWidth={stageWidth}/>
+        <Container
+    
+
+         >
+
+          <Text
+          text="If nothing is bothering you, you could help me eliminate my pet peeves!"
+         
+          y={position.y + stageHeight/11 + 130}
+          x={position.x } 
+          style={{
+            fill: ['#e6add8', '#99ccff'], 
+            stroke: '#5A5A5A',
+          strokeThickness: 2,
+          dropShadow: true,
+          dropShadowColor: '#5A5A5A',
+          dropShadowBlur: 8,
+          dropShadowAngle: Math.PI / 4,
+          dropShadowDistance: 3,
+          wordWrap: true,
+					wordWrapWidth: stageWidth/1.5,
+          fontSize: stageWidth*0.04,
+
+        fontWeight:200}}
+          />
+          </Container>
         </Container>}
 
 				
 
-		
-
-{/* {!movingCloser && blueyFinishedTalking && (
-				<Container>
-					<Container x={position.x} y={position.y}>
-					<AnimatedSprite
-						animationSpeed={0.01}
-						isPlaying={true}
-						scale={scale}
-						textures={textures}
-						anchor={0.5}
-					/>
-          
-				</Container>
-        {!text &&
-					<WhatBlueySays positionX={position.x + 200} positionY={position.y -250} />}
-          
-          <InputArea text={text} positionX={position.x + 200} positionY={position.y -40}/>
-          
-          
-          <OkayButton positionX={position.x + 200} 
-          positionY={position.y + 120}
-          positionXText={position.x + 175}
-          positionYText={position.y + 150}
-          setGameIntro={setGameIntro}/>
-
-
-				</Container>
-
-			)} */}
 
       {text && (
         <>

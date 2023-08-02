@@ -77,11 +77,14 @@ export const Game = () => {
 	const [gameIntro, setGameIntro] = useState("true");
 	const [smallerScreen, setSmallerScreen] = useState("false");
 	const [win, setWin] = useState(false);
+	const [showNavButtons, setShowNavButtons] = useState("false")
 	// const blueySpeed = useRef(smallerScreen? 6: 8);
 	// const leftButtonRef = React.useRef();
 
+	
+
 	useEffect(() => {
-		const smallerScreenDevice = window.innerWidth <= 780;
+		const smallerScreenDevice = window.innerWidth <= 800;
 		setSmallerScreen(smallerScreenDevice);
 	}, []);
 
@@ -172,33 +175,7 @@ export const Game = () => {
 
 	const stageElement = stageRef.current;
 
-	//   useEffect(() => {
-	// 	const stageElement = stageRef.current;
 
-	// 	const handleClick = () => {
-
-	// 	  inputRef.current.focus();
-	// 	 // Replace "Clicked!" with your desired alert message
-	// 	};
-
-	// 	if (stageElement) {
-	// 	  stageElement.addEventListener("click", handleClick);
-	// 	}
-
-	// 	// Remove the event listener when the component is unmounted
-	// 	return () => {
-	// 	  if (stageElement) {
-	// 		stageElement.removeEventListener("click", handleClick);
-	// 	  }
-	// 	};
-	//   }, []);
-
-	// const handleClick = (event) => {
-	// 	if(event.target == stageRef.current){
-	// 		inputRef.current.focus();
-	// 	}
-
-	// }
 
 	const inputFocus = () => {
 		if (inputRef.current) {
@@ -221,12 +198,14 @@ export const Game = () => {
 								<Stage width={stageWidth} height={stageHeight}>
 									<Container ref={stageRef}>
 										<scoreContext.Provider value={{ score, setScore }}>
-											{startGame && <Score score={score} />}
+											{startGame && !gameOver && !win && (
+												<Score score={score} />
+											)}
 
 											{/* {startGame && <Monsters amount={numberOfRows(3)} wordList={wordList}/>} */}
 											{startGame && !gameOver && !win && (
 												<Words
-													amount={numberOfRows(3)}
+													amount={numberOfRows(4)}
 													wordList={
 														wordList.length > 1 ? wordList : defaultWords
 													}
@@ -294,6 +273,7 @@ export const Game = () => {
 										{/* {startGame && !gameOver && !win && <NavigationButtons stageWidth={stageWidth} />} */}
 									</Container>
 								</Stage>
+								{startGame && !smallerScreen &&  <p>To navigate, use your keyboard's left and right arrows or click on the traingles on the screen.</p>}
 								{!startGame && (
 									<input
 										value={inputValue}
@@ -304,18 +284,20 @@ export const Game = () => {
 										ref={inputRef}
 									/>
 								)}
-								{smallerScreen && !startGame && (
-									<div
-										style={{
-											position: "absolute",
-											left: "50%",
-											transform: "translateX(-50%)",
-											// bottom: "20px",
-										}}
-									>
+
+								<div
+									style={{
+										position: "absolute",
+										left: "50%",
+										transform: "translateX(-50%)",
+										// bottom: "20px",
+									}}
+								>
+									{smallerScreen && !startGame && (
 										<button onClick={inputFocus}>Show KeyBoard &#9000;</button>
-									</div>
-								)}
+									)}
+									{/* {!smallerScreen && <button>Show on screen navigation buttons.</button>} */}
+								</div>
 							</gameOverContext.Provider>
 						</TrampolineContext.Provider>
 					</BlueyContext.Provider>

@@ -148,6 +148,7 @@ export const Game = () => {
 			setGameOver(false);
 			setWin(false);
 			setScore(0);
+			setInputValue("")
 		}
 	}, [startGame]);
 

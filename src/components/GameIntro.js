@@ -364,6 +364,7 @@ export default function GameIntro({setGameIntro, stageWidth, stageHeight,  text,
               fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
               fontSize: 0.080 * stageWidth,
               fontWeight:  '400',
+              fontSize: stageWidth/20,
               fill: ['white'],
               stroke: '#5A5A5A',
               strokeThickness: 5,
@@ -373,14 +374,14 @@ export default function GameIntro({setGameIntro, stageWidth, stageHeight,  text,
               letterSpacing: 2,
               dropShadowAngle: Math.PI / 4,
               dropShadowDistance: 3,
-              wordWrap: true,
+           
               wordWrapWidth: smallerScreen?200: 440,
             }}
           />
           <Text
             text={text}
             x={position.x + stageWidth/4.5}
-            y={app.screen.height - app.screen.height / 1.7}
+            y={app.screen.height - app.screen.height /1.38}
             style={{
               align: 'center',
               fontFamily: '"Source Sans Pro", Helvetica, sans-serif',

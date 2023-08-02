@@ -91,7 +91,7 @@ function InputArea({text, inputBoxRef}) {
 
 function WordInputBox({ text, inputBoxRef }) {
   const app = useApp();
-
+  const screenWidth = app.screen.width
   return (
     <Container>
       {!text && (
@@ -103,7 +103,7 @@ function WordInputBox({ text, inputBoxRef }) {
             display: text ? 'none' : 'block',
             align: 'center',
             fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
-            fontSize: 40,
+            fontSize:screenWidth/200,
             fontWeight: '400',
             fill: ['#ffffff', '#00ff99'], // gradient
             strokeThickness: 0,
@@ -125,7 +125,7 @@ function WordInputBox({ text, inputBoxRef }) {
             style={{
               align: 'center',
               fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
-              fontSize: 40,
+              fontSize: screenWidth/700,
               fontWeight: '400',
               fill: ['#ff9d9d', '#ffe1e1'],
               stroke: '#01d27e',

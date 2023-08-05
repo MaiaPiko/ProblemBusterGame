@@ -8,15 +8,10 @@ import React, {
 import { Container, Stage, Text, Graphics, useApp } from "@pixi/react";
 import Trampoline from "./sprites/Trampoline";
 import Bluey from "./sprites/Bluey";
-import MoveLeftButton from "./sprites/buttons/MoveLeftButton";
 import GameOverBox from "./GameOverBox";
-import WordInputBox from "./WordInputBox";
-import Monsters from "./sprites/Monsters";
-import Skip from "./Skip";
 import Words from "./sprites/Words";
 import Bricks from "./sprites/Bricks";
 import * as PIXI from "pixi.js";
-import NavigationButtons from "./sprites/buttons/NavigationButtons";
 import GameIntro from "./GameIntro";
 import YouWin from "./YouWin";
 import { keyboard } from "@testing-library/user-event/dist/keyboard";
@@ -281,7 +276,6 @@ export const Game = () => {
 									{smallerScreen && !startGame && (
 										<button onClick={inputFocus}>Show KeyBoard &#9000;</button>
 									)}
-									{/* {!smallerScreen && <button>Show on screen navigation buttons.</button>} */}
 								</div>
 							</gameOverContext.Provider>
 						</TrampolineContext.Provider>

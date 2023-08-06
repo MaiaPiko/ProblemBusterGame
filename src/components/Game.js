@@ -10,7 +10,6 @@ import Trampoline from "./sprites/Trampoline";
 import Bluey from "./sprites/Bluey";
 import GameOverBox from "./GameOverBox";
 import Words from "./sprites/Words";
-import Bricks from "./sprites/Bricks";
 import * as PIXI from "pixi.js";
 import GameIntro from "./GameIntro";
 import YouWin from "./YouWin";

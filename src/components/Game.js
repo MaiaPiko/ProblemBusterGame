@@ -10,7 +10,7 @@ import Trampoline from "./sprites/Trampoline";
 import Bluey from "./sprites/Bluey";
 import GameOverBox from "./GameOverBox";
 import Words from "./sprites/Words";
-import * as PIXI from "pixi.js";
+// import * as PIXI from "pixi.js";
 import GameIntro from "./GameIntro";
 import YouWin from "./YouWin";
 import { keyboard } from "@testing-library/user-event/dist/keyboard";
@@ -66,7 +66,7 @@ export const Game = () => {
 	const inputBoxRef = useRef(false);
 	const trampolineRef = useRef(null);
 	const blueyAngle = useRef(Math.random() * Math.PI * 2);
-	const stageRef = useRef(null); // Define the stageRef using useRef
+	const stageRef = useRef(null); 
 	const inputRef = useRef(null);
 	const [gameIntro, setGameIntro] = useState("true");
 	const [smallerScreen, setSmallerScreen] = useState("false");

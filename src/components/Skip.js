@@ -4,7 +4,6 @@ import { startGameContext } from './Game';
 
 const Skip = ({setStartGame}) => {
   const graphicsRef = React.useRef();
-  const gameStart = useContext(startGameContext);
   const app = useApp()
   const handleMouseOver = () => {
     if (graphicsRef.current) {

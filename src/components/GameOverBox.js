@@ -17,7 +17,6 @@ function GameOverBox({setStartGame, stageWidth}) {
 
  useEffect(() => {
   const handleKeyDown = (event) => {
-
     startGame();
   };
 

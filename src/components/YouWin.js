@@ -12,8 +12,7 @@ import bluey3 from "../assets/bluey/talking/4.png";
 import bluey4 from "../assets/bluey/talking/3.png";
 
 import * as PIXI from "pixi.js";
-import { useState, useRef, useContext, useEffect } from "react";
-import { startGameContext } from "./Game";
+import { useState, useRef, useEffect } from "react";
 import trampoline1 from "../assets/trampoline/pinkTrampoline1.png";
 import trampoline2 from "../assets/trampoline/pinkTrampoline2.png";
 import { checkCollision } from "../features/checkCollision";
@@ -66,7 +65,6 @@ function YouWin({ setStartGame }) {
 	const blueyHeight = textures[0]?.height * scale;
 	const blueyWidth = textures[0]?.width * scale;
 
-	const restartGame = useContext(startGameContext);
 
 
     const blueyRef = useRef(null);

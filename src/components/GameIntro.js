@@ -8,7 +8,7 @@ import talkingBluey5 from "../assets/bluey/talking/5.png";
 import talkingBluey6 from "../assets/bluey/talking/6.png";
 import React, { useEffect, useState, useRef, useContext, useCallback } from "react";
 import * as PIXI from "pixi.js";
-import { Container, AnimatedSprite, Graphics, useTick, Text, app, useApp } from "@pixi/react";
+import { Container, AnimatedSprite, Graphics, useTick, Text, useApp } from "@pixi/react";
 import { introContext, startGameContext } from "./Game";
 
 

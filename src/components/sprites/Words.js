@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Container, Text, useTick } from "@pixi/react";
 import { checkCollision } from "../../features/checkCollision";
-import { gameOverContext, scoreContext, BlueyContext, winContext} from "../Game";
+import {  scoreContext } from "../Game";
 
 
 export default function Words({ amount, wordList, stageWidth, stageHeight, blueyRef, blueyAngle, blueySpeed, setWin }) {
   const [words, setWords] = useState([]);
   const wordRefs = useRef([]);
   const { score, setScore } = useContext(scoreContext);
-  const gameOver = useContext(gameOverContext);
-  const win = useContext(winContext);
+
   
   
   useEffect(() => {
